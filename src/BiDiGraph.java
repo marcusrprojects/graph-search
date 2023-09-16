@@ -1,15 +1,43 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * A bidirectional graph representation.
+ * <p>
+ * This class models a bidirectional graph where each node can have edges
+ * to other nodes in both forward and reverse directions.
+ */
+
 public class BiDiGraph extends DirectedGraph{
 
+    /**
+     * The reversed adjacency list representation of the bidirectional graph,
+     * reversing relationships between nodes in the bidirectional graph.
+     */
     Map<Node, List<Node>> reverseAdjList;
 
+    /**
+     * Constructs a bidirectional graph from a given adjacency list, updating {@link BiDiGraph#adjList}.
+     * This function utilizes two helper functions to check whether it has
+     * been initialized with strings or Node's.
+     * If neither is true, adjacency list becomes a blank map.
+     * Additionally, the adjacency list is reversed for {@link BiDiGraph#reverseAdjList}
+     *
+     * @param adjList The adjacency list to initialize the bidirectional graph.
+     */
     public BiDiGraph(Map<?, ?> adjList) {
         super(adjList);
         reverse(this.adjList);
     }
 
+    /**
+     * Reverses the edges in the graph, creating a reverse graph: {@link BiDiGraph#reverseAdjList}.
+     * <p>
+     * This method inverts the direction of edges in the current graph to create a reverse graph,
+     * which allows for bidirectional search.
+     *
+     * @param adjList The adjacency list to reverse.
+     */
     public void reverse(Map<Node, List<Node>> adjList){
         // Create a new adjacency list to store the reversed edges
         Map<Node, List<Node>> reversedAdjList = new HashMap<>();
@@ -29,16 +57,28 @@ public class BiDiGraph extends DirectedGraph{
         this.reverseAdjList = reversedAdjList;
     }
 
+    /**
+     * Retrieves a reversed node corresponding to a given node.
+     *
+     * @param value The value of the node to find the reversed counterpart for.
+     * @return The reversed node, or {@code null} if not found.
+     */
     public Node getReverseNode(String value) {
         for (Node node : reverseAdjList.keySet()) {
 
-            if (Objects.equals(node.getValue(), value)) {
+            if (Objects.equals(node.value(), value)) {
                 return node;
             }
         }
         return null;
     }
 
+    /**
+     * Retrieves the neighbors of a node in the reversed graph.
+     *
+     * @param node The node for which to retrieve reversed neighbors.
+     * @return A list of reversed neighboring nodes.
+     */
     public List<Node> getReversedNeighbors(Node node) {
         if (reverseAdjList.containsKey(node)) {
             return reverseAdjList.get(node);
@@ -46,6 +86,16 @@ public class BiDiGraph extends DirectedGraph{
         return null;
     }
 
+    /**
+     * Generates a random adjacency list for testing purposes.
+     * <p>
+     * This method creates a random bidirectional graph with the specified number of nodes
+     * and maximum edges per node for testing and experimentation.
+     *
+     * @param nodes          The number of nodes in the graph.
+     * @param maxEdgesPerNode The maximum number of edges each node can have.
+     * @return A randomly generated adjacency list.
+     */
     @Override
     public Map<String, List<String>> generateRandomAdjacencyList(int nodes, int maxEdgesPerNode) {
         Map<String, List<String>> adjacencyList = new HashMap<>();
@@ -70,6 +120,14 @@ public class BiDiGraph extends DirectedGraph{
         return adjacencyList;
     }
 
+    /**
+     * Converts the bidirectional graph to a string representation.
+     * <p>
+     * This method returns a string representation of both the forward and reverse graphs
+     * in the bidirectional graph.
+     *
+     * @return A string representation of the bidirectional graph.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -91,6 +149,13 @@ public class BiDiGraph extends DirectedGraph{
         return sb.toString();
     }
 
+    /**
+     * The main method for running bidirectional search.
+     * <p>
+     * This method demonstrates bidirectional search on a bidirectional graph.
+     *
+     * @param args The command-line arguments (not used in this implementation).
+     */
     public static void main(String[] args) {
 
         Map<String, List<String>> smallAdjacencyList = new HashMap<>();

@@ -1,13 +1,33 @@
 import java.util.*;
 
+/**
+ * The BidirectionalSearch class provides functionality to perform bidirectional search
+ * on a bidirectional graph represented by a {@link BiDiGraph} object.
+ */
+
 public class BidirectionalSearch {
 
+    /**
+     * The bidirectional graph on which the search will be performed.
+     */
     BiDiGraph biDiGraph;
 
+    /**
+     * Constructs a BidirectionalSearch instance with the specified bidirectional graph.
+     *
+     * @param biDiGraph The bidirectional graph on which the search will be performed.
+     */
     public BidirectionalSearch(BiDiGraph biDiGraph) {
         this.biDiGraph = biDiGraph;
     }
 
+    /**
+     * Performs bidirectional search between two specified nodes and returns the path, if found.
+     *
+     * @param src The starting node of the search.
+     * @param dest   The target node to reach.
+     * @return {@code true} if it finds a path from the src to dest, {@code false} otherwise.
+     */
     public boolean search(String src, String dest) {
         HashSet<Node> forwardVisited = new HashSet<>();
         HashSet<Node> reversedVisited = new HashSet<>();
@@ -56,11 +76,21 @@ public class BidirectionalSearch {
         return false;  // No intersection found
     }
 
+    /**
+     * Returns a string representation of the bidirectional search results.
+     *
+     * @return A string containing the search results, including the path if found.
+     */
     @Override
     public String toString() {
         return biDiGraph.toString(); // Assuming you want to print the forward graph
     }
 
+    /**
+     * The main method that demonstrates how to use bidirectional search.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
 
         Map<String, List<String>> smallAdjacencyList = new HashMap<>();

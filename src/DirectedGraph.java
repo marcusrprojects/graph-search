@@ -1,10 +1,26 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a directed graph data structure using adjacency lists.
+ * This class allows you to create, manipulate, and traverse directed graphs.
+ */
+
 public class DirectedGraph extends Graph{
 
+    /**
+     * Constructs a new directed graph with the provided adjacency list,
+     * updating {@link DirectedGraph#adjList}.
+     * This function utilizes two helper functions to check whether it has
+     * been initialized with strings or Node's.
+     * If neither is true, adjacency list becomes a blank map.
+     *
+     * @param adjList The adjacency list representing the directed graph.
+     *                It must be a map.
+     * @see DirectedGraph#isStringListMap(Map)
+     * @see DirectedGraph#convertStringMapToAdjacencyList(Map)
+     */
     public DirectedGraph(Map<?, ?> adjList) {
-
 
         if (isNodeListMap(adjList)) {
             this.adjList = (Map<Node, List<Node>>) adjList;
@@ -17,6 +33,14 @@ public class DirectedGraph extends Graph{
         }
     }
 
+    /**
+     * Checks if the given map represents a Node-List adjacency list.
+     *
+     * This method determines if the map contains nodes as keys and lists of nodes as values.
+     *
+     * @param map The map to check.
+     * @return {@code true} if the map represents a Node-List adjacency list, {@code false} otherwise.
+     */
     private boolean isNodeListMap(Map<?, ?> map) {
         if (map.isEmpty()) {
             return true; // Empty map is treated as a Node-List map
@@ -26,6 +50,14 @@ public class DirectedGraph extends Graph{
         return entry.getKey() instanceof Node && entry.getValue() instanceof List<?>;
     }
 
+    /**
+     * Checks if the given map represents a String-List adjacency list.
+     * <p>
+     * This method determines if the map contains strings as keys and lists of strings as values.
+     *
+     * @param map The map to check.
+     * @return {@code true} if the map represents a String-List adjacency list, {@code false} otherwise.
+     */
     private boolean isStringListMap(Map<?, ?> map) {
         if (map.isEmpty()) {
             return false; // Empty map is not treated as a String-List map
@@ -35,6 +67,11 @@ public class DirectedGraph extends Graph{
         return entry.getKey() instanceof String && entry.getValue() instanceof List<?>;
     }
 
+    /**
+     * Adds a node to the directed graph.
+     *
+     * @param node The node to add.
+     */
     @Override
     public void addNode(Node node) {
         if (!adjList.containsKey(node)) {
@@ -42,6 +79,11 @@ public class DirectedGraph extends Graph{
         }
     }
 
+    /**
+     * Adds a node with the specified value to the directed graph.
+     *
+     * @param value The value of the node to add.
+     */
     @Override
     public void addNode(String value) {
         if (getNode(value) == null) {
@@ -50,6 +92,12 @@ public class DirectedGraph extends Graph{
         }
     }
 
+    /**
+     * Adds a directed edge between two nodes in the graph.
+     *
+     * @param src The source node.
+     * @param dest   The destination node.
+     */
     @Override
     public void addEdge(String src, String dest) {
 
@@ -74,6 +122,12 @@ public class DirectedGraph extends Graph{
         adjList.get(srcNode).add(destNode);
     }
 
+    /**
+     * Returns the neighbors of a given node in the directed graph.
+     *
+     * @param node The node for which to retrieve neighbors.
+     * @return A list of neighboring nodes.
+     */
     @Override
     public List<Node> getNeighbors(Node node) {
         if (adjList.containsKey(node)) {
@@ -82,11 +136,17 @@ public class DirectedGraph extends Graph{
         return null;
     }
 
+    /**
+     * Retrieves a node by its value from the directed graph.
+     *
+     * @param value The value of the node to retrieve.
+     * @return The node with the specified value, or {@code null} if not found.
+     */
     @Override
     public Node getNode(String value) {
         for (Node node : adjList.keySet()) {
 
-            if (Objects.equals(node.getValue(), value)) {
+            if (Objects.equals(node.value(), value)) {
                 return node;
             }
         }
@@ -94,7 +154,16 @@ public class DirectedGraph extends Graph{
         return null;
     }
 
-    // Convert a string map into an adjacency list to fit into the graph
+
+    /**
+     * Converts a String-List adjacency list to the internal Node-List representation.
+     * <p>
+     * This method takes a map with strings as keys and lists of strings as values and
+     * converts it into the Node-List format used by the directed graph.
+     *
+     * @param stringAdjList The String-List adjacency list to convert.
+     */
+    @Override
     public void convertStringMapToAdjacencyList(Map<String, List<String>> stringAdjList) {
         for (Map.Entry<String, List<String>> entry : stringAdjList.entrySet()) {
             Node source = new Node(entry.getKey());
@@ -110,6 +179,16 @@ public class DirectedGraph extends Graph{
         }
     }
 
+    /**
+     * Generates a random adjacency list for testing purposes.
+     * <p>
+     * This method creates a random directed graph with the specified number of nodes
+     * and maximum edges per node for testing and experimentation.
+     *
+     * @param nodes          The number of nodes in the graph.
+     * @param maxEdgesPerNode The maximum number of edges each node can have.
+     * @return A randomly generated adjacency list.
+     */
     public Map<String, List<String>> generateRandomAdjacencyList(int nodes, int maxEdgesPerNode) {
         Map<String, List<String>> adjacencyList = new HashMap<>();
 
@@ -129,6 +208,14 @@ public class DirectedGraph extends Graph{
         return adjacencyList;
     }
 
+    /**
+     * Returns a string representation of the directed graph.
+     * <p>
+     * This method generates a human-readable string that represents the directed graph,
+     * including its nodes and edges in the forward direction.
+     *
+     * @return A string representation of the directed graph.
+     */
     @Override
     public String toString() {
         return adjList.entrySet().stream()
@@ -138,6 +225,15 @@ public class DirectedGraph extends Graph{
                 .collect(Collectors.joining("\n"));
     }
 
+
+    /**
+     * The main method for testing the DirectedGraph class.
+     * <p>
+     * This method is the entry point for running the DirectedGraph class as a standalone application.
+     * It demonstrates the usage of the DirectedGraph class by creating a sample graph and printing its contents.
+     *
+     * @param args The command-line arguments (not used in this example).
+     */
     public static void main(String[] args) {
 
         Map<String, List<String>> smallAdjacencyList = new HashMap<>();
