@@ -1,21 +1,26 @@
 import java.util.Objects;
 
-public class Node {
-    private final String value;
+/**
+ * The Node class represents a node in a graph with a unique value.
+ */
+public record Node(String value) {
 
-    public Node(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
+    /**
+     * Overrides toString() to return the string representation of the node's value.
+     *
+     * @return The string representation of the node's value.
+     */
     @Override
     public String toString() {
         return value;
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param o The reference object with which to compare.
+     * @return {@code true} if this object is the same as the {@code o} argument; {@code false} otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,8 +29,4 @@ public class Node {
         return Objects.equals(value, node.value);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
 }
