@@ -35,7 +35,7 @@ public class DirectedGraph extends Graph{
 
     /**
      * Checks if the given map represents a Node-List adjacency list.
-     *
+     * <p>
      * This method determines if the map contains nodes as keys and lists of nodes as values.
      *
      * @param map The map to check.
