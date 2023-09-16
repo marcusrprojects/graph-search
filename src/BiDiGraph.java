@@ -29,9 +29,18 @@ public class BiDiGraph extends DirectedGraph{
         this.reverseAdjList = reversedAdjList;
     }
 
+    public Node getReverseNode(String value) {
+        for (Node node : reverseAdjList.keySet()) {
+
+            if (Objects.equals(node.getValue(), value)) {
+                return node;
+            }
+        }
+        return null;
+    }
 
     public List<Node> getReversedNeighbors(Node node) {
-        if (!reverseAdjList.containsKey(node)) {
+        if (reverseAdjList.containsKey(node)) {
             return reverseAdjList.get(node);
         }
         return null;
@@ -82,7 +91,7 @@ public class BiDiGraph extends DirectedGraph{
         Map<String, List<String>> smallAdjacencyList = new HashMap<>();
         List<String> aList = Arrays.asList("B", "C");
         List<String> bList = Arrays.asList("D", "E");
-        List<String> cList = Arrays.asList("F");
+        List<String> cList = List.of("F");
         smallAdjacencyList.put("A", new ArrayList<>(aList));
         smallAdjacencyList.put("B", new ArrayList<>(bList));
         smallAdjacencyList.put("C", new ArrayList<>(cList));

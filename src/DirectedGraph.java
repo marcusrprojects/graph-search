@@ -5,6 +5,7 @@ public class DirectedGraph extends Graph{
 
     public DirectedGraph(Map<?, ?> adjList) {
 
+
         if (isNodeListMap(adjList)) {
             this.adjList = (Map<Node, List<Node>>) adjList;
         } else if (isStringListMap(adjList)) {
@@ -79,7 +80,7 @@ public class DirectedGraph extends Graph{
 
     @Override
     public List<Node> getNeighbors(Node node) {
-        if (!adjList.containsKey(node)) {
+        if (adjList.containsKey(node)) {
             return adjList.get(node);
         }
         return null;
