@@ -5,9 +5,9 @@ public abstract class Graph {
 
     protected Map<Node, List<Node>> adjList;
 
-    public abstract Node addNode(Node node);
+    public abstract void addNode(Node node);
 
-    public abstract Node addNode(String value);
+    public abstract void addNode(String value);
 
     public abstract void addEdge(String src, String dest);
 

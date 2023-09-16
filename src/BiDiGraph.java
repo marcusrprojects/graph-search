@@ -46,7 +46,8 @@ public class BiDiGraph extends DirectedGraph{
         return null;
     }
 
-    public static Map<String, List<String>> generateLargeAdjacencyList(int nodes, int maxEdgesPerNode) {
+    @Override
+    public Map<String, List<String>> generateRandomAdjacencyList(int nodes, int maxEdgesPerNode) {
         Map<String, List<String>> adjacencyList = new HashMap<>();
 
         for (int i = 0; i < nodes; i++) {
@@ -56,7 +57,11 @@ public class BiDiGraph extends DirectedGraph{
             List<String> neighbors = new ArrayList<>();
             for (int j = 0; j < edges; j++) {
                 int neighborIndex = (int) (Math.random() * nodes);
-                neighbors.add("Node" + neighborIndex);
+                String neighbor = "Node" + neighborIndex;
+                neighbors.add(neighbor);
+
+                // Add a backward edge from the neighbor to the current node
+                adjacencyList.computeIfAbsent(neighbor, k -> new ArrayList<>()).add(node);
             }
 
             adjacencyList.put(node, neighbors);

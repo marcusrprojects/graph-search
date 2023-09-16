@@ -36,22 +36,18 @@ public class DirectedGraph extends Graph{
     }
 
     @Override
-    public Node addNode(Node node) {
+    public void addNode(Node node) {
         if (!adjList.containsKey(node)) {
             adjList.put(node, new ArrayList<>());
         }
-        return node;
     }
 
     @Override
-    public Node addNode(String value) {
-//        node is already added
-        if (getNode(value) != null) {
-            return null;
+    public void addNode(String value) {
+        if (getNode(value) == null) {
+            Node node = new Node(value);
+            adjList.put(node, new ArrayList<>());
         }
-        Node node = new Node(value);
-        adjList.put(node, new ArrayList<>());
-        return node;
     }
 
     @Override
@@ -112,6 +108,25 @@ public class DirectedGraph extends Graph{
 
             this.adjList.get(source).addAll(neighbors);
         }
+    }
+
+    public Map<String, List<String>> generateRandomAdjacencyList(int nodes, int maxEdgesPerNode) {
+        Map<String, List<String>> adjacencyList = new HashMap<>();
+
+        for (int i = 0; i < nodes; i++) {
+            String node = "Node" + i;
+            int edges = (int) (Math.random() * maxEdgesPerNode) + 1;
+
+            List<String> neighbors = new ArrayList<>();
+            for (int j = 0; j < edges; j++) {
+                int neighborIndex = (int) (Math.random() * nodes);
+                neighbors.add("Node" + neighborIndex);
+            }
+
+            adjacencyList.put(node, neighbors);
+        }
+
+        return adjacencyList;
     }
 
     @Override
