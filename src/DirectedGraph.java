@@ -6,7 +6,15 @@ import java.util.stream.Collectors;
  * This class allows you to create, manipulate, and traverse directed graphs.
  */
 
-public class DirectedGraph extends Graph{
+public class DirectedGraph extends Graph<Node>{
+
+    /**
+     * Constructs a bidirectional graph, updating {@link BiDiGraph#adjList} and  {@link BiDiGraph#reverseAdjList}.
+     * This function is the default constructor so it sets an empty adjList.
+     */
+    public DirectedGraph() {
+        new DirectedGraph(new HashMap<Node, List<Node>>());
+    }
 
     /**
      * Constructs a new directed graph with the provided adjacency list,

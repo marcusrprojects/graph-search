@@ -5,7 +5,7 @@ import java.util.*;
  * on a bidirectional graph represented by a {@link BiDiGraph} object.
  */
 
-public class BidirectionalSearch {
+public class BidirectionalSearch extends BiDiGraph {
 
     /**
      * The bidirectional graph on which the search will be performed.
@@ -18,6 +18,7 @@ public class BidirectionalSearch {
      * @param biDiGraph The bidirectional graph on which the search will be performed.
      */
     public BidirectionalSearch(BiDiGraph biDiGraph) {
+        super();
         this.biDiGraph = biDiGraph;
     }
 

@@ -17,6 +17,15 @@ public class BiDiGraph extends DirectedGraph{
     Map<Node, List<Node>> reverseAdjList;
 
     /**
+     * Constructs a bidirectional graph, updating {@link BiDiGraph#adjList} and  {@link BiDiGraph#reverseAdjList}.
+     * This function is the default constructor so it sets an empty adjList.
+     */
+    public BiDiGraph() {
+        super();
+        new BiDiGraph(new HashMap<Node, List<Node>>());
+    }
+
+    /**
      * Constructs a bidirectional graph from a given adjacency list, updating {@link BiDiGraph#adjList}.
      * This function utilizes two helper functions to check whether it has
      * been initialized with strings or Node's.

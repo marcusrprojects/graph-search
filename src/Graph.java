@@ -17,16 +17,16 @@ import java.util.Map;
  * </p>
  *
  */
-public abstract class Graph {
+public abstract class Graph <T extends Node> {
 
-    protected Map<Node, List<Node>> adjList;
+    protected Map<Node, List<T>> adjList;
 
     /**
      * Adds a node to the graph.
      *
      * @param node The node to be added.
      */
-    public abstract void addNode(Node node);
+    public abstract void addNode(T node);
 
     /**
      * Adds a node to the graph.
@@ -49,7 +49,7 @@ public abstract class Graph {
      * @param node The node whose neighbors are requested.
      * @return A list of neighboring nodes.
      */
-    public abstract List<Node> getNeighbors(Node node);
+    public abstract List<T> getNeighbors(T node);
 
     /**
      * Returns the given node or null.
@@ -57,11 +57,11 @@ public abstract class Graph {
      * @param value The value of the node of interest.
      * @return given node or null if this node does not exist yet.
      */
-    public abstract Node getNode(String value);
+    public abstract T getNode(String value);
 
 
     /**
-     * Converts a string map into an adjacency list utilizing the Node type.
+     * Converts a string map into an adjacency list utilizing the generic Node type.
      *
      * @param stringAdjList adjacency list using strings
      */
